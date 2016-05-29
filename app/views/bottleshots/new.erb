@@ -1,0 +1,18 @@
+<h1>Order a new bottleshot:</h1>
+<br></br>
+<form action="/bottleshots" method="POST">
+  <p>Varietal name: <input type="text" name="varietal" id="varietal"></p>
+  <p>Vintage: <input type="text" name="vintage" id="vintage"></p>
+  <p>Choose a bottleshape:</p>
+  <%Bottleshape.all.each do |s|%>
+    <input type="radio" name="shape" value="<%=s.id%>"><%=s.name%></input>
+  <%end%>
+  <p>or order a custom shape: <input type="text" name="bottleshape[name]"></p>
+  <p>Choose your wine color:</p>
+  <%Winecolor.all.each do |c|%>
+    <input type="radio" name="color" value="<%=c.id%>"><%=c.name%></input>
+  <%end%>
+  <p>or describe your specific color: <input type="text" name="winecolor[name]"></p>
+  <p>Label URL: <input type="text" name="label_file"></p> 
+  <input type="submit" id="submit" value="Done!">
+</form>

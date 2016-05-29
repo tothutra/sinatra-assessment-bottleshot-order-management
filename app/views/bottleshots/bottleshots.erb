@@ -1,0 +1,10 @@
+<h1>Hi, <%=current_user.name%>! Here are all your current bottleshots:</h1>
+<br></br>
+<ul>
+  <%current_user.bottleshots.each do |t|%>
+    <li><a href="/bottleshots/<%=t.id%>"><%=t.varietal%> - <%=t.vintage%></a></li>
+  <%end%>
+</ul>
+
+<p><a href="/bottleshots/new">Order a new bottleshot</a></p>
+<p><a href="/logout">Log Out</a></p>
