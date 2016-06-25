@@ -20,11 +20,13 @@ class BottleshotsController < ApplicationController
     if logged_in?
       @bottleshot = Bottleshot.create(varietal: params[:varietal], vintage: params[:vintage], user_id: session[:id], label_file: params[:label_file])
       @bottleshot.bottleshape = Bottleshape.find_by_id(params[:shape])
+      @bottleshot.save
       if !params[:bottleshape][:name].empty?
         @bottleshot.bottleshape = Bottleshape.find_or_create_by(name: params[:bottleshape][:name])
         @bottleshot.save
       end
       @bottleshot.winecolor = Winecolor.find_by_id(params[:color])
+      @bottleshot.save
       if !params[:winecolor][:name].empty?
         @bottleshot.winecolor = Winecolor.find_or_create_by(name: params[:winecolor][:name])
         @bottleshot.save
@@ -57,16 +59,18 @@ class BottleshotsController < ApplicationController
     end
   end
 
-  patch '/bottleshots/:id/edit' do
+  patch '/bottleshots/:id' do
     @bottleshot = Bottleshot.find_by_id(params[:id])
     if logged_in? && @bottleshot[:user_id] == session[:id]
-      @bottleshot = Bottleshot.update(varietal: params[:varietal], vintage: params[:vintage], user_id: session[:id], label_file: params[:label_file])
+      @bottleshot.update(varietal: params[:varietal], vintage: params[:vintage], user_id: session[:id], label_file: params[:label_file])
       @bottleshot.bottleshape = Bottleshape.find_by_id(params[:shape])
+      @bottleshot.save
       if !params[:bottleshape][:name].empty?
         @bottleshot.bottleshape = Bottleshape.find_or_create_by(name: params[:bottleshape][:name])
         @bottleshot.save
       end
       @bottleshot.winecolor = Winecolor.find_by_id(params[:color])
+      @bottleshot.save
       if !params[:winecolor][:name].empty?
         @bottleshot.winecolor = Winecolor.find_or_create_by(name: params[:winecolor][:name])
         @bottleshot.save

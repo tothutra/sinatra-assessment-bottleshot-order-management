@@ -1,9 +1,9 @@
 <h1>Edit your bottleshot:</h1>
 <br></br>
-<form action="/bottleshots" method="POST">
+<form action="/bottleshots/<%=@bottleshot.id%>" method="POST">
   <input type="hidden" name="_method" id="hidden" value="patch">
   <p>Varietal name: <input type="text" name="varietal" id="varietal" value="<%=@bottleshot.varietal%>"></p>
-  <p>Vintage: <input type="text" name="vintage" id="vintage" value="<%=@bottleshot.varietal%>"></p>
+  <p>Vintage: <input type="text" name="vintage" id="vintage" value="<%=@bottleshot.vintage%>"></p>
   <p>Choose a bottleshape:</p>
   <%Bottleshape.all.each do |s|%>
     <input type="radio" name="shape" value="<%=s.id%>" <%='checked' if @bottleshot.bottleshape==s%>><%=s.name%></input>
@@ -14,6 +14,6 @@
     <input type="radio" name="color" value="<%=c.id%>" <%='checked' if @bottleshot.winecolor==c%>><%=c.name%></input>
   <%end%>
   <p>or describe your specific color: <input type="text" name="winecolor[name]"></p>
-  <p>Label URL: <input type="text" name="label_file" value="<%=@bottleshot.varietal%>"></p> 
+  <p>Label URL: <input type="text" name="label_file" value="<%=@bottleshot.label_file%>"></p> 
   <input type="submit" id="submit" value="Update!">
 </form>

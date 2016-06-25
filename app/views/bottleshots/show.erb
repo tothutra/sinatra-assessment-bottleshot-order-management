@@ -6,11 +6,10 @@
 <p>Wine color: <%=@bottleshot.winecolor.name%></p>
 <p>Label URL: <%=@bottleshot.label_file%></p>
 <br></br>
-<p><a href="/bottleshots/<%=@bottleshot.id%>/edit">Edit</a></p>
 <form action="/bottleshots/<%=@bottleshot.id%>/edit" method="GET">
   <input type="submit" value="Edit">
 </form>
-<form action="/bottleshots" method="POST">
+<form action="/bottleshots/<%=@bottleshot.id%>" method="POST">
   <input type="hidden" name="_method" value="delete" id="hidden">
   <input type="submit" value="Delete">
 </form>
