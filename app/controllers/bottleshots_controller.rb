@@ -18,20 +18,25 @@ class BottleshotsController < ApplicationController
 
   post '/bottleshots' do
     if logged_in?
-      @bottleshot = Bottleshot.create(varietal: params[:varietal], vintage: params[:vintage], user_id: session[:id], label_file: params[:label_file])
-      @bottleshot.bottleshape = Bottleshape.find_by_id(params[:shape])
-      @bottleshot.save
-      if !params[:bottleshape][:name].empty?
-        @bottleshot.bottleshape = Bottleshape.find_or_create_by(name: params[:bottleshape][:name])
+      if params[:varietal] == ""
+        flash[:error] = "Varietal name can't be blank"
+        redirect "bottleshots/new"
+      else
+        @bottleshot = Bottleshot.create(varietal: params[:varietal], vintage: params[:vintage], user_id: session[:id], label_file: params[:label_file])
+        @bottleshot.bottleshape = Bottleshape.find_by_id(params[:shape])
         @bottleshot.save
-      end
-      @bottleshot.winecolor = Winecolor.find_by_id(params[:color])
-      @bottleshot.save
-      if !params[:winecolor][:name].empty?
-        @bottleshot.winecolor = Winecolor.find_or_create_by(name: params[:winecolor][:name])
+        if !params[:bottleshape][:name].empty?
+          @bottleshot.bottleshape = Bottleshape.find_or_create_by(name: params[:bottleshape][:name])
+          @bottleshot.save
+        end
+        @bottleshot.winecolor = Winecolor.find_by_id(params[:color])
         @bottleshot.save
+        if !params[:winecolor][:name].empty?
+          @bottleshot.winecolor = Winecolor.find_or_create_by(name: params[:winecolor][:name])
+          @bottleshot.save
+        end
+        redirect "/bottleshots/#{@bottleshot.id}"
       end
-      redirect "/bottleshots/#{@bottleshot.id}"
     else
       redirect '/login'  
     end
