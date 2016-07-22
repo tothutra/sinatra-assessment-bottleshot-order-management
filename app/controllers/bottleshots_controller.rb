@@ -19,6 +19,7 @@ class BottleshotsController < ApplicationController
   post '/bottleshots' do
     if logged_in?
       if params[:varietal] == ""
+        flash[:error] = "Varietal name must not be blanked!"
         redirect "bottleshots/new"
       else
         @bottleshot = Bottleshot.create(varietal: params[:varietal], vintage: params[:vintage], user_id: session[:id], label_file: params[:label_file])
