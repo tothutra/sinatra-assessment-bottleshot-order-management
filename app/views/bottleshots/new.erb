@@ -1,3 +1,7 @@
+<% if flash[:notice] %>
+  <p class="error"><%= flash[:notice] %></p>
+<% end %>
+
 <h1>Order a new bottleshot:</h1>
 <br></br>
 <form action="/bottleshots" method="POST">
